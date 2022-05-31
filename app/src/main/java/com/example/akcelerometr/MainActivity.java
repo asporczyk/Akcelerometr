@@ -1,8 +1,5 @@
 package com.example.akcelerometr;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Sensor;
@@ -16,23 +13,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
 
-    private SensorManager sensorManager;
     Sensor acceleometer;
     Sensor temperature;
     Sensor light;
-
     ImageView imageView;
-
     float velocityX, velocityY;
-
     Spinner spinner;
     ArrayAdapter<CharSequence> ad;
+    private SensorManager sensorManager;
 
-    void turnOn(int mode){
+    void turnOn(int mode) {
         if (acceleometer != null) {
             sensorManager.registerListener(this, acceleometer, mode);
         } else {
@@ -126,16 +121,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             float dx = sensorEvent.values[0];
             float dy = sensorEvent.values[1];
 
-            float newVelocityX = (float) (velocityX + 0.01*dx);
-            float newVelocityY = (float) (velocityY + 0.01*dy);
+            float newVelocityX = (float) (velocityX + 0.01 * dx);
+            float newVelocityY = (float) (velocityY + 0.01 * dy);
 
             DisplayMetrics displayMetrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
-            if(imageView.getX() - sensorEvent.values[0] >= 0 && imageView.getX() - sensorEvent.values[0] <= displayMetrics.widthPixels - imageView.getWidth()){
+            if (imageView.getX() - sensorEvent.values[0] >= 0 && imageView.getX() - sensorEvent.values[0] <= displayMetrics.widthPixels - imageView.getWidth()) {
                 imageView.setX(imageView.getX() - newVelocityX);
             } else {
-                newVelocityX = -newVelocityX*0.75f;
+                newVelocityX = -newVelocityX * 0.75f;
                 imageView.setX(imageView.getX() - newVelocityX);
             }
 
@@ -143,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
 
 
-            if(imageView.getY() + sensorEvent.values[1] >= 0 && imageView.getY() + sensorEvent.values[1] <= displayMetrics.heightPixels - imageView.getHeight()*1.5f - resources.getDimensionPixelSize(resourceId)){
+            if (imageView.getY() + sensorEvent.values[1] >= 0 && imageView.getY() + sensorEvent.values[1] <= displayMetrics.heightPixels - imageView.getHeight() * 1.5f - resources.getDimensionPixelSize(resourceId)) {
                 imageView.setY(imageView.getY() + newVelocityY);
-            } else{
-                newVelocityY = -newVelocityY*0.75f;
+            } else {
+                newVelocityY = -newVelocityY * 0.75f;
                 imageView.setY(imageView.getY() + newVelocityY);
             }
 
