@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Akcelerometr</string>
+    <string-array name="modes">
+        <item>NORMAL</item>
+        <item>UI</item>
+        <item>GAME</item>
+        <item>FASTEST</item>
+    </string-array>
+</resources>
